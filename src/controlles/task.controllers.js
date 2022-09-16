@@ -8,11 +8,19 @@ ctrlTask.getTask = (req, res) => {
     })
 }
 
-ctrlTask.postTask = (req, res) => {
-    console.log(req.body)
-    res.send({
-        message: "Peticion POST"
-    })
+ctrlTask.postTask = async(req, res) => {
+    const {name, description} = req.body;
+
+    const newTask = new Task({
+        name,
+        description
+    });
+    const task = await newTask.save();
+    
+    return res.json({
+        msg: "tarea creada correctamente",
+        task
+    });
 }
 
 ctrlTask.putTask = (req, res) => {
