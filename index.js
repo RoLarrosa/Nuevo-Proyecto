@@ -1,5 +1,7 @@
 const express = require('express');
 const app = express();
+const conexionDb = require('./src/db/connection')
+conexionDb();
 app.use(express.json());
 
 app.use(require("./src/routes/home.routes"))

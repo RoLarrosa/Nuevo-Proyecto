@@ -1,28 +1,30 @@
-const ctrlHome = {};
+const Task = require("../models/task");
 
-ctrlHome.gethome = (req, res) => {
+const ctrlTask = {};
+
+ctrlTask.getTask = (req, res) => {
     res.send({
         message: "Peticion GET"
     })
 }
 
-ctrlHome.posthome = (req, res) => {
+ctrlTask.postTask = (req, res) => {
     console.log(req.body)
     res.send({
         message: "Peticion POST"
     })
 }
 
-ctrlHome.puthome = (req, res) => {
+ctrlTask.putTask = (req, res) => {
     res.send({
         message: "Peticion PUT"
     })
 }
 
-ctrlHome.deletehome = (req, res) => {
+ctrlTask.deleteTask = (req, res) => {
     res.send({
         message: "Peticion DELETE"
     })
 }
 
-module.exports = ctrlHome;
+module.exports = ctrlTask;
