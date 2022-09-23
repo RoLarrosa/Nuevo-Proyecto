@@ -1,38 +1,74 @@
-const Task = require("../models/task");
+const Tasks = require("../models/task");
 
-const ctrlTask = {};
+ctrlTasks = {};
 
-ctrlTask.getTask = (req, res) => {
-    res.send({
-        message: "Peticion GET"
-    })
-}
 
-ctrlTask.postTask = async(req, res) => {
-    const {name, description} = req.body;
+ctrlTasks.getTask = async (req, res) => {
+    const tasks = await Tasks.find({ isActive: true });
 
-    const newTask = new Task({
-        name,
-        description
+    return res.render('index', {tasks});
+};
+
+ctrlTasks.postTask = async (req, res) => {
+    const { titulo, descripcion } = req.body;
+
+
+    const nuevaTarea = new Tasks({
+        titulo,
+        descripcion
     });
-    const task = await newTask.save();
-    
-    return res.json({
-        msg: "tarea creada correctamente",
-        task
-    });
-}
 
-ctrlTask.putTask = (req, res) => {
-    res.send({
-        message: "Peticion PUT"
-    })
-}
+    try {
+        
+        const tarea = await nuevaTarea.save();
 
-ctrlTask.deleteTask = (req, res) => {
-    res.send({
-        message: "Peticion DELETE"
-    })
-}
+        return res.json({
+            msg:'La tarea fue guardada con éxito',
+            tarea});
+    } catch (error) {
+        console.log(error)
+    }
+};
 
-module.exports = ctrlTask;
+
+ctrlTasks.putTask = async (req, res) => {
+    const id = req.params.id;
+    const { titulo, descripcion, ...otroDatos } = req.body;
+
+    if (!id || !descripcion || !titulo) {
+        return res.status(400).json({
+            msg: 'No viene id en la petición',
+        });
+    };
+
+    try {
+        const tareaActualizada = await Tasks.findByIdAndUpdate(id, { titulo, descripcion })
+
+        return res.json({
+            msg: 'Tarea actualizada correctamente',
+        });
+    } catch (error) {
+        console.log(error.message);
+        return res.status(500).json({
+            msg: 'Error al actualizar la tarea'
+        })
+    }
+};
+
+	
+ctrlTasks.deleteTask = async (req, res) => {
+    const id = req.params.id;
+
+    try {
+        await Tasks.findByIdAndUpdate(id, { isActive: false })
+        return res.json('Tarea eliminada correctamente');
+    } catch (err) {
+        console.log(err.message)
+        return res.status(500).json({
+            msg: 'Error al eliminar la tarea'
+        });
+    }
+};
+
+
+module.exports = ctrlTasks;

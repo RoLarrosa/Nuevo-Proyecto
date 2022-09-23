@@ -2,16 +2,16 @@ const router = require('express').Router();
 //const modelsUser = require('../models/user');
 
 const {
-    getUsers,
+    getUser,
     postUser,
     putUser,
     deleteUser,
 
 } = require('../controllers/user.controllers');
 
-router.get('/user', getUsers);
+router.get('/user', getUser);
 
-router.get('/user', postUser);
+router.post('/user', postUser);
 
 router.put('/user', putUser);
 

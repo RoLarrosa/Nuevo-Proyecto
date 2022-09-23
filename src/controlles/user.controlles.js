@@ -3,7 +3,7 @@ const User = require("../models/user");
 const ctrlUser = {};
 
 
-ctrlUser.getUsers = async (req, res) => {
+ctrlUser.getUser = async (req, res) => {
     const users = await User.find();
     return res.json(users)
 };
@@ -20,7 +20,7 @@ ctrlUser.postUser = async (req, res) => {
     });
 
     const user = await newUser.save();
-    
+    console.log(req.body)
     return res.json({
         msg: 'Usuario creado correctamente',
         user
