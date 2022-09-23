@@ -6,7 +6,7 @@ app.use(express.json());
 
 app.use(require("./src/routes/task.routes.js"))
 app.use(require("./src/routes/home.routes"))
-
+app.use(require("./src/routes/user.routes"))
 
 const port = 3000
 app.listen(port, () => {
