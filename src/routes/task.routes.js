@@ -5,7 +5,7 @@ const {
     postTask,
     putTask,
     deleteTask,
-} = require("../controlles/task.controllers");
+} = require("../controllers/task.controllers");
 
 router.get('/task', getTask);
 

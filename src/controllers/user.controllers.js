@@ -20,21 +20,14 @@ ctrlUser.postUser = async (req, res) => {
         active
     });
 
-    const user = await newUser.save(function(err,result){
-        if (err){
-            console.log(err);
-        }
-        else{
-            console.log(result)
-        }
-    });
+    try{
 
-    console.log(req.body)
-
-    return res.json({
-        msg: 'Usuario creado correctamente',
-        //user
-    });
+        const user = await newUser.save();
+        console.log(req.body);
+        return res.json( 'Usuario creado correctamente')
+    } catch (error) {
+        console.log(error)
+    }   
 };
 
 

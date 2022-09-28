@@ -4,7 +4,7 @@ const {
     posthome,
     puthome,
     deletehome
-} = require("../controlles/home.controlles");
+} = require("../controllers/home.controllers");
 
 router.get("/",gethome)
 
